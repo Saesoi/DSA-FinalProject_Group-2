@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button, input {
+            margin: 10px;
+            padding: 10px;
+            background-color: #FFD000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover, input:hover {
+            background-color: #FFD000;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Linked List Operations </h2>
+<p>Enter a value and choose an operation below:</p>
+
+<div id="output">
+    {% if result %}
+        <p>Result: {{ result }}</p>
+    {% endif %}
+    <p>Current List:</p>
+    <pre>{{ linked_list }}</pre> 
+</div>
+
+<form method="POST">
+    <label for="inputField">Enter value:</label>
+    <input type="text" id="inputField" name="data">
+
+    <button type="submit" name="operation" value="insert_at_beginning">Insert at Beginning</button>
+    <button type="submit" name="operation" value="insert_at_end">Insert at End</button>
+    <button type="submit" name="operation" value="remove_beginning">Remove Beginning</button>
+    <button type="submit" name="operation" value="remove_at_end">Remove at End</button>
+    <button type="submit" name="operation" value="remove_at">Remove at Specific Position</button>
+    <button type="submit" name="operation" value="search">Search</button>
+</form>
+
+
+
+</body>
+</html>

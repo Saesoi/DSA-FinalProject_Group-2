@@ -84,23 +84,6 @@ ul, ol {
   }
 }
 
-
-/* Ensure the body and html fill the viewport */
-html, body {
-  height: 100%;  /* Required for full-height elements to work */
-  margin: 0;     /* Remove default body margin */
-}
-
-body {
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  min-height: 100vh; /* Ensure the body takes at least 100vh */
-}
-
-h1, h4 {
-  text-align: center;
-}
-
 /* navigation */
 .navigation-header {
   width: 100%;
@@ -133,33 +116,47 @@ h1, h4 {
   color: #FFD000;
 }
 
-/* Activity Section */
-.activity-section {
-  flex-grow: 1; /* This will allow it to take the remaining space */
-  margin-top: 2em;
+/* Member Profile Section */
+.member-profile-div{
+    width: 95vw;
+    margin: 0 2.5vw 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30em 30em 30em;
+    gap: 30px;
 }
 
-.activity-list {
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  place-items: center;
-
+.profile-div{   
+    background-color: #2A2929;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-rows: 70% 8% 5% 8%;
+    border-radius: 5px;
 }
 
-.activity-list > li {
-  width: 100%;
-  text-align: center;
-  place-items: center;
-  height: 100%;
+h2,
+h4,
+h5{
+    text-align: center;
+    color: wheat;
 }
 
+.yellow-text {
+    color: #FFD000;
+}
 
+.profile-image-div{
+    width: 100%;
+    height: 95%;
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center
+}
 
-.activity-div {
-  width: 80%;
-  height: 80%;
-  background-color: #2A2929;
-  border-radius: 0.8em;
-  padding: 1em 1em 1em;
+.profile-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensures the image is contained inside the parent */
+  border-radius: 5px;
 }

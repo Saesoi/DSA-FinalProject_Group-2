@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to Our Website</h1>
-
-    <nav>
-        <ul>
+    <nav class="navigation-header">
+        <ul class="link-button">
             <li><a href="/templates/profile.html">Profile</a></li>
-            <li><a href="/works">Works</a></li>
+            <li><a href="/templates/work.html">Works</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
 
+    <h1>Welcome to <span class="yellow-text">Our</span> Website</h1>
 
-    <h1>Welcome to my programming works</h1>
-    <p>Instruction: create a route and a page for the link that are not working</p>
+    <h4>Welcome to our programming works</h1>
 
-    <ul>
-        <li><a href="/works">toUpperCase</a></li>
-        <li><a href="/areaOfcirle">Area of a Circle</a></li>
-        <li><a href="/areaOfTriangle">Area of a Triangle</a></li>
-    </ul>
+    <div class="activity-section">   
+        <ul class="activity-list">
+            <li>
+                <div class="activity-div">
+                    <a href="/works" class="yellow-text">toUpperCase</a>
+                </div>
+            </li>
+            <li>
+                <div class="activity-div">
+                    <a href="/areaOfcirle" class="yellow-text">Area of a Circle</a>
+                </div>
+            </li>
+            <li>
+                <div class="activity-div">
+                    <a href="/areaOfTriangle" class="yellow-text">Area of a Triangle</a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
-
