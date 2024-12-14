@@ -95,10 +95,21 @@ body {
   display: flex;
   flex-direction: column; /* Stack content vertically */
   min-height: 100vh; /* Ensure the body takes at least 100vh */
+  background: rgb(0,0,0);
+  background: radial-gradient(circle, rgba(0,0,0,1) 26%, rgba(36,35,38,1) 72%, rgba(41,40,41,1) 94%, rgba(42,41,41,1) 100%);
+}
+
+.centered-container {
+  display: flex;
+  flex-direction: column;    /* Stack elements vertically */
+  justify-content: center;   /* Vertically center */
+  align-items: center;       /* Horizontally center */
+  margin-top: 16%;
 }
 
 h1, h4 {
   text-align: center;
+  color: aliceblue;
 }
 
 /* navigation */
@@ -107,7 +118,7 @@ h1, h4 {
   height: 70px;
   padding: 0 3em;
   margin-bottom: 2em;
-  background-color: #0F0F0F;
+  background: transparent;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -133,9 +144,9 @@ h1, h4 {
   color: #FFD000;
 }
 
-/* Activity Section */
+/* Activity Section 
 .activity-section {
-  flex-grow: 1; /* This will allow it to take the remaining space */
+  flex-grow: 1; 
   margin-top: 2em;
 }
 
@@ -163,3 +174,4 @@ h1, h4 {
   border-radius: 0.8em;
   padding: 1em 1em 1em;
 }
+*/
