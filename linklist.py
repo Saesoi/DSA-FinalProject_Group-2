@@ -16,44 +16,51 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
+    def insert_at_end(self, data):
+        new_node = self.Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
     def remove_beginning(self):
         if not self.head:
-            return None
+            return "List is empty. Nothing to remove."
         removed_data = self.head.data
         self.head = self.head.next
-        return removed_data
+        return f"Removed {removed_data} from the beginning of the list."
 
     def remove_at_end(self):
         if not self.head:
-            return None
+            return "List is empty. Nothing to remove."
         if not self.head.next:
             removed_data = self.head.data
             self.head = None
-            return removed_data
+            return f"Removed {removed_data} from the end of the list."
         current = self.head
         while current.next and current.next.next:
             current = current.next
         removed_data = current.next.data
         current.next = None
-        return removed_data
+        return f"Removed {removed_data} from the end of the list."
 
     def remove_at(self, data):
         if not self.head:
-            return None
+            return "List is empty. Nothing to remove."
         if self.head.data == data:
-            removed_data = self.head.data
             self.head = self.head.next
-            return removed_data
+            return f"Removed {data} from the list."
         current = self.head
         while current.next and current.next.data != data:
             current = current.next
         if not current.next:
-            return None
-        removed_data = current.next.data
+            return f"{data} not found in the list."
         current.next = current.next.next
-        return removed_data
+        return f"Removed {data} from the list."
 
-    # Search for an element in the list
     def search(self, data):
         current = self.head
         while current:
@@ -68,7 +75,7 @@ class LinkedList:
         while current:
             result.append(str(current.data))
             current = current.next
-        return "\n".join(result) if result else "List is empty"
+        return "\n".join(result) if result else "List is empty."
 
 
 linked_list = LinkedList()
@@ -78,27 +85,24 @@ def index():
     result = ""
     if request.method == 'POST':
         operation = request.form['operation']
-        data = request.form['data']
-        
+        data = request.form.get('data', '').strip()
+
         if operation == "remove_beginning":
             result = linked_list.remove_beginning()
         elif operation == "remove_at_end":
             result = linked_list.remove_at_end()
         elif operation == "remove_at":
             result = linked_list.remove_at(data)
-        elif operation == "insert_at_end":
-            linked_list.insert_at_beginning(data) 
-            result = f"Inserted {data} at the beginning of the List."
         elif operation == "insert_at_beginning":
-            linked_list.insert_at_beginning(data)  
-            result = f"Inserted {data} at the beginning of the List."
+            linked_list.insert_at_beginning(data)
+            result = f"Inserted {data} at the beginning of the list."
+        elif operation == "insert_at_end":
+            linked_list.insert_at_end(data)
+            result = f"Inserted {data} at the end of the list."
         elif operation == "search":
-            if linked_list.search(data):
-                result = f"Found {data} in the List."
-            else:
-                result = f"{data} not found in the List."
+            result = f"Found {data} in the list." if linked_list.search(data) else f"{data} not found in the list."
 
     return render_template('work.html', result=result, linked_list=linked_list.print_list())
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

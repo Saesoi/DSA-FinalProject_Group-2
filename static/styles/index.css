@@ -1,0 +1,85 @@
+
+/* navigation */
+.navigation-header {
+  width: 100%;
+  height: 70px;
+  padding: 0 3em;
+  margin-bottom: 2em;
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.link-button {
+  display: flex;
+  gap: 3em;
+}
+
+.link-button > li {
+  color: #FFD000;
+  font-weight: 600;
+  transition: color 0.15s ease, font-size 0.20s ease;
+}
+
+.link-button > li:hover {
+  color: white;
+  font-size: 1.1em;
+}
+
+.yellow-text {
+  color: #FFD000;
+}
+
+.work-button{
+  margin-top: 2em;
+}
+
+.work-button>a {
+  background-color: #FFD000;
+  padding: 1em;
+  border-radius: 2px;
+  transition: color 2s padding 2s;
+}
+
+.work-button>a:hover{
+  color: white;
+  padding: 1.3em;
+}
+
+h1, h4 {
+  text-align: center;
+  color: aliceblue;
+}
+
+/* Activity Section 
+.activity-section {
+  flex-grow: 1; 
+  margin-top: 2em;
+}
+
+.activity-list {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+
+}
+
+.activity-list > li {
+  width: 100%;
+  text-align: center;
+  place-items: center;
+  height: 100%;
+}
+
+
+
+.activity-div {
+  width: 80%;
+  height: 80%;
+  background-color: #2A2929;
+  border-radius: 0.8em;
+  padding: 1em 1em 1em;
+}
+*/
