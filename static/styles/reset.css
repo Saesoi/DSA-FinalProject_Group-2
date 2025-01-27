@@ -95,8 +95,7 @@ body {
   display: flex;
   flex-direction: column; /* Stack content vertically */
   min-height: 100vh; /* Ensure the body takes at least 100vh */
-  background: rgb(0,0,0);
-  background: radial-gradient(circle, rgba(0,0,0,1) 26%, rgba(36,35,38,1) 72%, rgba(41,40,41,1) 94%, rgba(42,41,41,1) 100%);
+  
 }
 
 .centered-container {

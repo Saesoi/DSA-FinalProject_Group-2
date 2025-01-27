@@ -6,45 +6,51 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="/static/styles/index.css">
     <link rel="stylesheet" href="/static/styles/reset.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navigation-header">
-        <ul class="link-button">
-            <li><a href="#">Home</a></li>
-            <li><a href="/templates/profile.html">Profile</a></li>
-            <li><a href="prework.html">Works</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
-
+  <div class="main"></div>
     <div class="centered-container">
         <h1>Welcome to <span class="yellow-text">Our</span> Website</h1>
         <h4>Welcome to our programming works</h1>
     </div>
 
-    <!--
-    <div class="activity-section">   
-        <ul class="activity-list">
-            <li>
-                <div class="activity-div">
-                    <a href="/works" class="yellow-text">toUpperCase</a>
-                </div>
-            </li>
-            <li>
-                <div class="activity-div">
-                    <a href="/areaOfcirle" class="yellow-text">Area of a Circle</a>
-                </div>
-            </li>
-            <li>
-                <div class="activity-div">
-                    <a href="/areaOfTriangle" class="yellow-text">Area of a Triangle</a>
-                </div>
-            </li>
-        </ul>
+    <div class="planets-link-container">
+        <div class="profile-container">
+            <!-- Planet icon (image) -->
+            <a href="/templates/profile.html" class="zoom-link">
+              <img class="planet-icons" src="/images/uranus (2).png" alt="Planet Icon">
+            </a>
+            
+            <!-- Planet information -->
+            <div class="planet-info">
+              <p class="typewriting-text">Planet: Profile</p>
+              <p class="typewriting-text delay-5">Threat: <span style="color: rgb(5, 201, 5);">Safe</span></p>
+              <p class="typewriting-text delay-10">Information:</p>
+              <p class="typewriting-text delay-15">
+                This planet contains links to other planets that you can see on the homepage.
+              </p>
+            </div>
+          </div>
+        
+        <div class="work-container">
+            <a href="prework.html">
+                <img class="planet-icons" src="/images/planet (1).png" alt="">
+            </a>
+    
+            <div class="work-info">
+                <p class="typewriting-text">Planet: Works</p>
+                <p class="typewriting-text delay-5">Threat: <span style="color: rgb(233, 41, 34);">Danger</span></p>
+                <p class="typewriting-text delay-10">Information:</p>
+                <p class="typewriting-text delay-15">
+                  This planet contains links to other planets that you can see on the homepage.
+                </p>
+              </div>
+        </div>
+        
     </div>
-    -->
 </body>
 </html>
