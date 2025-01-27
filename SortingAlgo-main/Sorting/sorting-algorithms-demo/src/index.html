@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms Visualization</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
+    <link rel="stylesheet" href="/static/styles/reset.css">
+</head>
+<body>
+    <div class="main"></div>
+    <nav class="navigation-header">
+        <ul class="link-button">
+            <li><a href="/templates/index.html">Home</a></li>
+            <li><a href="/templates/profile.html">Profile</a></li>
+            <li><a href="/templates/prework.html">Works</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="main-container">
+        <div class="container">
+            <header>
+                <h1>Sorting Algorithms Visualization</h1>
+                <p>Select an algorithm to visualize the sorting process.</p>
+                <p id="current-algorithm">Current Sorting Algorithm: <span>None</span></p>
+            </header>
+            <main>
+                <div id="array-container" class="array"></div>
+                <div id="controls" class="controls">
+                    <button class="button" onclick="resetArray(); startBubbleSort(this)">Bubble Sort</button>
+                    <button class="button" onclick="resetArray(); startSelectionSort(this)">Selection Sort</button>
+                    <button class="button" onclick="resetArray(); startInsertionSort(this)">Insertion Sort</button>
+                    <button class="button" onclick="resetArray(); startMergeSort(this)">Merge Sort</button>
+                    <button class="button" onclick="resetArray(); startQuickSort(this)">Quick Sort</button>
+                    <button class="button" onclick="resetArray(); startRandomQuickSort(this)">Random Quick Sort</button>
+                    <button class="button" onclick="resetArray(); startCountingSort(this)">Counting Sort</button>
+                    <button class="button" onclick="resetArray(); startRadixSort(this)">Radix Sort</button>
+                    <button class="stop-button" onclick="stopSorting()">STOP</button>
+                </div>
+                <p>(Auto-Generated Values) Array Size:</p>
+                <div id="settings" class="settings">
+                    <input type="number" id="array-size" value="20" min="1" max="50" class="input-box"/>
+                    <button class="set-button" onclick="initializeArray()">SET</button>
+                </div>
+                <p style="font-weight: bold;">OR</p>
+                <p>Enter your own values (comma-separated):</p>
+                <div class="user-input">
+                    <input type="text" id="user-values" class="values-input-box"/>
+                    <button class="set-button" onclick="initializeArray()">SET</button>
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="scripts/bubbleSort.js"></script>
+    <script src="scripts/selectionSort.js"></script>
+    <script src="scripts/insertionSort.js"></script>
+    <script src="scripts/mergeSort.js"></script>
+    <script src="scripts/quickSort.js"></script>
+    <script src="scripts/randomQuickSort.js"></script>
+    <script src="scripts/countingSort.js"></script>
+    <script src="scripts/radixSort.js"></script>
+    <script>
+        let array = [];
+        let originalArray = [];
+        let sortingInProgress = false;
+        let currentSortFunction = null;
+        let stopRequested = false;
+
+        function initializeArray() {
+            const userValues = document.getElementById('user-values').value;
+            if (userValues) {
+                array = userValues.split(',').map(Number);
+            } else {
+                const arraySize = document.getElementById('array-size').value;
+                array = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 100));
+            }
+            originalArray = [...array];
+            renderArray(array);
+        }
+
+        function resetArray() {
+            array = [...originalArray];
+            renderArray(array);
+        }
+
+        function renderArray(arr, movingIndices = []) {
+            const container = document.getElementById('array-container');
+            container.innerHTML = '';
+            const maxVal = Math.max(...arr);
+            const barWidth = container.clientWidth / arr.length - 8; // Adjusting for margin
+
+            arr.forEach((value, index) => {
+                const bar = document.createElement('div');
+                bar.classList.add('bar');
+                bar.style.height = `${value * 3}px`;
+                bar.style.width = `${barWidth}px`;
+                bar.style.backgroundColor = `hsl(${(value / maxVal) * 360}, 70%, 40%)`;
+                if (movingIndices.includes(index)) {
+                    bar.classList.add('moving');
+                }
+                const label = document.createElement('div');
+                label.classList.add('label');
+                label.innerText = value;
+                bar.appendChild(label);
+                container.appendChild(bar);
+            });
+        }
+
+        function setActiveButton(button) {
+            const buttons = document.querySelectorAll('#controls .button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        function resetSortingState() {
+            sortingInProgress = false;
+            currentSortFunction = null;
+            stopRequested = false;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>None</span>';
+            const buttons = document.querySelectorAll('#controls .button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+        }
+
+        function stopSorting() {
+            stopRequested = true;
+            enableButtons();
+            const buttons = document.querySelectorAll('#controls .button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+        }
+
+        function disableButtons() {
+            const buttons = document.querySelectorAll('#controls .button');
+            buttons.forEach(button => {
+                if (button.innerText !== 'Stop') {
+                    button.disabled = true;
+                    button.classList.add('disabled');
+                }
+            });
+        }
+
+        function enableButtons() {
+            const buttons = document.querySelectorAll('#controls .button');
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('disabled');
+            });
+        }
+
+        async function startBubbleSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = bubbleSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Bubble Sort</span>';
+            await bubbleSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startSelectionSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = selectionSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Selection Sort</span>';
+            await selectionSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startInsertionSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = insertionSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Insertion Sort</span>';
+            await insertionSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startMergeSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = mergeSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Merge Sort</span>';
+            await mergeSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startQuickSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = quickSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Quick Sort</span>';
+            await quickSort(array, 0, array.length - 1, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startRandomQuickSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = randomQuickSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Random Quick Sort</span>';
+            await randomQuickSort(array, 0, array.length - 1, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startCountingSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = countingSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Counting Sort</span>';
+            await countingSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        async function startRadixSort(button) {
+            if (sortingInProgress) {
+                resetSortingState();
+                resetArray();
+            }
+            setActiveButton(button);
+            sortingInProgress = true;
+            disableButtons();
+            currentSortFunction = radixSort;
+            document.getElementById('current-algorithm').innerHTML = 'Current Sorting Algorithm: <span>Radix Sort</span>';
+            await radixSort(array, renderArray);
+            resetSortingState();
+            enableButtons();
+        }
+
+        initializeArray();
+    </script>
+</body>
+</html>

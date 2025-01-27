@@ -1,0 +1,21 @@
+
+
+.centered-container-binary {
+  display: flex;
+  flex-direction: column;    /* Stack elements vertically */
+  justify-content: center;   /* Vertically center */
+  align-items: center;       /* Horizontally center */
+}
+
+form{
+  width: 500px;
+  margin-left: 3em;
+}
+
+input {
+  width: 75%; /* Set the width to 300 pixels */
+}
+
+button{
+  width: 15%;
+}

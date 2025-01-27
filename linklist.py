@@ -1,108 +1,107 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
 class LinkedList:
     def __init__(self):
         self.head = None
 
-    class Node:
-        def __init__(self, data):
-            self.data = data
-            self.next = None
-
-    def insert_at_beginning(self, data):
-        new_node = self.Node(data)
-        new_node.next = self.head
-        self.head = new_node
-
-    def insert_at_end(self, data):
-        new_node = self.Node(data)
+    def append(self, data):
+        new_node = Node(data)
         if not self.head:
             self.head = new_node
             return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node.next = new_node
 
     def remove_beginning(self):
-        if not self.head:
-            return "List is empty. Nothing to remove."
+        if self.head is None:
+            return None
         removed_data = self.head.data
         self.head = self.head.next
-        return f"Removed {removed_data} from the beginning of the list."
+        return removed_data
 
     def remove_at_end(self):
-        if not self.head:
-            return "List is empty. Nothing to remove."
-        if not self.head.next:
+        if self.head is None:
+            return None
+        if self.head.next is None:
             removed_data = self.head.data
             self.head = None
-            return f"Removed {removed_data} from the end of the list."
-        current = self.head
-        while current.next and current.next.next:
-            current = current.next
-        removed_data = current.next.data
-        current.next = None
-        return f"Removed {removed_data} from the end of the list."
+            return removed_data
+        last_node = self.head
+        while last_node.next and last_node.next.next:
+            last_node = last_node.next
+        removed_data = last_node.next.data
+        last_node.next = None
+        return removed_data
 
     def remove_at(self, data):
-        if not self.head:
-            return "List is empty. Nothing to remove."
+        if self.head is None:
+            return None
         if self.head.data == data:
+            removed_data = self.head.data
             self.head = self.head.next
-            return f"Removed {data} from the list."
-        current = self.head
-        while current.next and current.next.data != data:
-            current = current.next
-        if not current.next:
-            return f"{data} not found in the list."
-        current.next = current.next.next
-        return f"Removed {data} from the list."
+            return removed_data
+        current_node = self.head
+        while current_node.next:
+            if current_node.next.data == data:
+                removed_data = current_node.next.data
+                current_node.next = current_node.next.next
+                return removed_data
+            current_node = current_node.next
+        return None
 
-    def search(self, data):
-        current = self.head
-        while current:
-            if current.data == data:
-                return True
-            current = current.next
-        return False
-
-    def print_list(self):
-        result = []
-        current = self.head
-        while current:
-            result.append(str(current.data))
-            current = current.next
-        return "\n".join(result) if result else "List is empty."
-
+    def display(self):
+        elements = []
+        current_node = self.head
+        while current_node:
+            elements.append(current_node.data)
+            current_node = current_node.next
+        return elements
 
 linked_list = LinkedList()
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    result = ""
-    if request.method == 'POST':
-        operation = request.form['operation']
-        data = request.form.get('data', '').strip()
+@app.route('/')
+def home():
+    return render_template('work.html')
 
-        if operation == "remove_beginning":
-            result = linked_list.remove_beginning()
-        elif operation == "remove_at_end":
-            result = linked_list.remove_at_end()
-        elif operation == "remove_at":
-            result = linked_list.remove_at(data)
-        elif operation == "insert_at_beginning":
-            linked_list.insert_at_beginning(data)
-            result = f"Inserted {data} at the beginning of the list."
-        elif operation == "insert_at_end":
-            linked_list.insert_at_end(data)
-            result = f"Inserted {data} at the end of the list."
-        elif operation == "search":
-            result = f"Found {data} in the list." if linked_list.search(data) else f"{data} not found in the list."
+@app.route('/append', methods=['POST'])
+def append():
+    data = request.form['data']
+    linked_list.append(data)
+    return jsonify({"message": f"Added {data} to the list", "list": linked_list.display()})
 
-    return render_template('work.html', result=result, linked_list=linked_list.print_list())
+@app.route('/remove_beginning', methods=['POST'])
+def remove_beginning():
+    removed_data = linked_list.remove_beginning()
+    if removed_data:
+        return jsonify({"message": f"Removed {removed_data} from the beginning", "list": linked_list.display()})
+    else:
+        return jsonify({"message": "The list is empty", "list": linked_list.display()})
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+@app.route('/remove_at_end', methods=['POST'])
+def remove_at_end():
+    removed_data = linked_list.remove_at_end()
+    if removed_data:
+        return jsonify({"message": f"Removed {removed_data} from the end", "list": linked_list.display()})
+    else:
+        return jsonify({"message": "The list is empty", "list": linked_list.display()})
+
+@app.route('/remove_at', methods=['POST'])
+def remove_at():
+    data = request.form['data']
+    removed_data = linked_list.remove_at(data)
+    if removed_data:
+        return jsonify({"message": f"Removed {removed_data} from the list", "list": linked_list.display()})
+    else:
+        return jsonify({"message": f"{data} not found in the list", "list": linked_list.display()})
+
+if __name__ == "__main__":
+    app.run(debug=True)

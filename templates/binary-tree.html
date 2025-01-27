@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/reset.css">
+    <link rel="stylesheet" href="/static/styles/work.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
+    <link rel="stylesheet" href="/static/styles/binary.css">
+    <title>Binary Tree Operations</title>
+    </style>
+</head>
+<body>
+    <div class="main"></div>
+    <nav class="navigation-header">
+        <ul class="link-button">
+            <li><a href="http://127.0.0.1:5500/templates/index.html">Home</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/profile.html">Profile</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/prework.html">Works</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="centered-container-binary">
+        <h1>Binary Tree Operations</h1>
+
+        <!-- Search form -->
+        <h3>Search Node</h3>
+        <form action="/" method="POST">
+            <input type="text" name="key" placeholder="Enter key to search" required>
+            <input type="hidden" name="action" value="search">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Delete form -->
+        <h3>Delete Node</h3>
+        <form action="/" method="POST">
+            <input type="text" name="key" placeholder="Enter key to delete" required>
+            <input type="hidden" name="action" value="delete">
+            <button type="submit">Delete</button>
+        </form>
+
+        <!-- Add form -->
+        <h3>Add Node</h3>
+        <form action="/" method="POST">
+            <input type="text" name="key" placeholder="Enter key to add" required>
+            <input type="hidden" name="action" value="add">
+            <button type="submit">Add</button>
+        </form>
+
+        <!-- Display message -->
+        {% if message %}
+            <h4>{{ message }}</h4>
+        {% endif %}
+
+        <!-- Display Binary Tree -->
+    </div>
+    </div>
+</body>
+</html>

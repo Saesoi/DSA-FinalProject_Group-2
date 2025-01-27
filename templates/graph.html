@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/reset.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
+    <link rel="stylesheet" href="/static/styles/graph.css">
+    <title>MRT Shortest Path</title>
+</head>
+<body>
+    <div class="main"></div>
+    <nav class="navigation-header">
+        <ul class="link-button">
+            <li><a href="http://127.0.0.1:5500/templates/index.html">Home</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/profile.html">Profile</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/prework.html">Works</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="main-container">
+        <h1>Find the Shortest Path Between MRT Stations</h1>
+        <form action="/shortest_path" method="POST">
+            <label for="start">Start Station:</label>
+            <input type="text" id="start" name="start" required>
+            <br><br>
+            <label for="end">End Station:</label>
+            <input type="text" id="end" name="end" required>
+            <br><br>
+            <button type="submit">Find Path</button>
+        </form>
+
+        {% if path %}
+            <div class="result">
+                Shortest path from {{ start }} to {{ end }}: 
+                <strong>{{ path | join(' to ') }}</strong>
+            </div>
+        {% elif error %}
+            <div class="result">
+                <strong>{{ error }}</strong>
+            </div>
+        {% endif %}
+
+        <img src="{{ url_for('static', filename='mrt_graph.png') }}" alt="MRT Graph" style="max-width: 600px; margin-top: 30px;">
+    </div>
+</body>
+</html>

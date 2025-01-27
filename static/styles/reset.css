@@ -106,3 +106,10 @@ body {
   margin-top: 16%;
 }
 
+h3, h1, h4{
+  color: aliceblue;
+}
+
+.work-button > a{
+  margin-right: 1em;
+}

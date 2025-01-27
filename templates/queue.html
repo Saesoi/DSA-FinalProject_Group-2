@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/work.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
+    <link rel="stylesheet" href="/static/styles/reset.css">
+    <title>Queue and Deque Operations</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="main"></div>
+    <nav class="navigation-header">
+        <ul class="link-button">
+            <li><a href="http://127.0.0.1:5500/templates/index.html">Home</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/profile.html">Profile</a></li>
+            <li><a href="http://127.0.0.1:5500/templates/prework.html">Works</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <h1>Queue and Deque Operations</h1>
+
+    <div>
+        <h2>Queue Operations</h2>
+        <input type="text" id="enqueue-data" placeholder="Enter data to enqueue">
+        <button onclick="enqueue()">Enqueue</button>
+        <button onclick="dequeue()">Dequeue</button>
+        <p>Queue: <span id="queue-display">[]</span></p>
+    </div>
+
+    <div>
+        <h2>Deque Operations</h2>
+        <input type="text" id="deque-data" placeholder="Enter data">
+        <button onclick="appendLeft()">Append Left</button>
+        <button onclick="appendRight()">Append Right</button>
+        <button onclick="popLeft()">Pop Left</button>
+        <button onclick="popRight()">Pop Right</button>
+        <p>Deque: <span id="deque-display">[]</span></p>
+    </div>
+
+    <script>
+        function updateQueueDisplay(data) {
+            $('#queue-display').text(JSON.stringify(data));
+        }
+
+        function updateDequeDisplay(data) {
+            $('#deque-display').text(JSON.stringify(data));
+        }
+
+        function enqueue() {
+            const data = $('#enqueue-data').val();
+            $.post('/enqueue', { data: data }, function(response) {
+                updateQueueDisplay(response);
+            });
+        }
+
+        function dequeue() {
+            $.post('/dequeue', function(response) {
+                updateQueueDisplay(response);
+            });
+        }
+
+        function appendLeft() {
+            const data = $('#deque-data').val();
+            $.post('/append_left', { data: data }, function(response) {
+                updateDequeDisplay(response);
+            });
+        }
+
+        function appendRight() {
+            const data = $('#deque-data').val();
+            $.post('/append_right', { data: data }, function(response) {
+                updateDequeDisplay(response);
+            });
+        }
+
+        function popLeft() {
+            $.post('/pop_left', function(response) {
+                updateDequeDisplay(response);
+            });
+        }
+
+        function popRight() {
+            $.post('/pop_right', function(response) {
+                updateDequeDisplay(response);
+            });
+        }
+    </script>
+</body>
+</html>

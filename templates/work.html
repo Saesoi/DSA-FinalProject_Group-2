@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linked List Operations</title>
     <link rel="stylesheet" href="/static/styles/work.css">
     <link rel="stylesheet" href="/static/styles/reset.css">
+    <link rel="stylesheet" href="/static/styles/universebg.css">
+    <title>LinkedList Operations</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <div class="main"></div>
     <nav class="navigation-header">
         <ul class="link-button">
             <li><a href="http://127.0.0.1:5500/templates/index.html">Home</a></li>
@@ -16,28 +19,68 @@
             <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
+    <h1>LinkedList Operations</h1>
 
-    <h2>Linked List Operations</h2>
-    <p>Enter a value and choose an operation below:</p>
-
-    <div id="output">
-        {% if result %}
-            <p>Result: {{ result }}</p>
-        {% endif %}
-        <p>Current List:</p>
-        <pre>{{ linked_list }}</pre> 
+    <!-- Input Area -->
+    <div>
+        <label for="data">Enter Data:</label>
+        <input type="text" id="data" placeholder="Enter data to add/remove">
     </div>
 
-    <form method="POST">
-        <label for="inputField">Enter value:</label>
-        <input type="text" id="inputField" name="data">
+    <!-- Buttons for Operations -->
+    <button id="append">Add to List</button>
+    <button id="remove_beginning">Remove from Beginning</button>
+    <button id="remove_at_end">Remove from End</button>
+    <button id="remove_at">Remove Specific Data</button>
 
-        <button type="submit" name="operation" value="insert_at_beginning">Insert at Beginning</button>
-        <button type="submit" name="operation" value="insert_at_end">Insert at End</button>
-        <button type="submit" name="operation" value="remove_beginning">Remove Beginning</button>
-        <button type="submit" name="operation" value="remove_at_end">Remove at End</button>
-        <button type="submit" name="operation" value="remove_at">Remove at Specific Position</button>
-        <button type="submit" name="operation" value="search">Search</button>
-    </form>
+    <h2>List Contents</h2>
+    <div id="list-content"></div>
+
+    <div id="message"></div>
+
+    <script>
+        function updateListContent(data) {
+            let listContent = "<ul>";
+            data.forEach(item => {
+                listContent += `<li>${item}</li>`;
+            });
+            listContent += "</ul>";
+            $("#list-content").html(listContent);
+        }
+
+        $(document).ready(function() {
+            $("#append").click(function() {
+                let data = $("#data").val();
+                $.post("/append", { data: data }, function(response) {
+                    $("#message").text(response.message);
+                    updateListContent(response.list);
+                    $("#data").val('');
+                });
+            });
+
+            $("#remove_beginning").click(function() {
+                $.post("/remove_beginning", function(response) {
+                    $("#message").text(response.message);
+                    updateListContent(response.list);
+                });
+            });
+
+            $("#remove_at_end").click(function() {
+                $.post("/remove_at_end", function(response) {
+                    $("#message").text(response.message);
+                    updateListContent(response.list);
+                });
+            });
+
+            $("#remove_at").click(function() {
+                let data = $("#data").val();
+                $.post("/remove_at", { data: data }, function(response) {
+                    $("#message").text(response.message);
+                    updateListContent(response.list);
+                    $("#data").val('');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

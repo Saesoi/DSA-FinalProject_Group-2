@@ -6,7 +6,7 @@ button, input {
     margin: 10px;
     padding: 10px;
     background-color: #FFD000;
-    color: black;
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
     transition: color 15s;
@@ -59,6 +59,11 @@ label {
   
   .yellow-text {
     color: #FFD000;
+  }
+
+  #message,
+  #list-content{
+    color: white;
   }
 
   
