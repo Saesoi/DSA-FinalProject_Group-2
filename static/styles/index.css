@@ -63,11 +63,7 @@ h1, h4 {
 .profile-container{
   position: absolute;
   right: 240px;
-<<<<<<< HEAD
   top: -300px;
-=======
-  top: -220px;
->>>>>>> f47e976a526986ef92f43e30c5aad398758773a2
 }
 
 .profile-container:hover .planet-info{
@@ -85,11 +81,7 @@ h1, h4 {
   transform: scale(1.2);
 }
 
-<<<<<<< HEAD
 /*Planet Information*/
-=======
-/*Plant Information*/
->>>>>>> f47e976a526986ef92f43e30c5aad398758773a2
 .planet-info{
   position: absolute;
   left: -330px;
@@ -124,7 +116,6 @@ h1, h4 {
 .profile-container:hover .typewriting-text{
   letter-spacing: 5px;
   color: white;
-<<<<<<< HEAD
   width: 100%;
   height: 10%;
   border-right: 5px solid;
@@ -339,169 +330,4 @@ h1, h4 {
 
 @keyframes typing {
   from { width: 0 }
-=======
-  width: 100%;
-  height: 10%;
-  border-right: 5px solid;
-  white-space: normal;
-  overflow: hidden;
-  word-wrap: break-word;
-  line-height: 1.5;
-  animation: 
-      typing 2s steps(30),
-      cursor 1s step-end 1;
-}
-
-.profile-container:hover .typewriting-text.delay-5{
-  text-decoration: overline solid #e4e9e9;
-  animation: 
-      typing 2s steps(30) 1s,
-      cursor 1s step-end 1 1s;
-      animation-fill-mode: both;
-}
-
-.profile-container:hover .typewriting-text.delay-10{
-  margin: 1em 0 0.3em;
-  animation: 
-      typing 2s steps(40) 2s,
-      cursor 1s step-end 1 2s;
-      animation-fill-mode: both;
-}
-
-.profile-container:hover .typewriting-text.delay-15{
-  width: 100%;
-  height: 30%;
-  text-indent: 20px;
-  font-size: 0.8em;
-  letter-spacing: 2px;
-  animation: 
-      typing 2s steps(40) 3s,
-      cursor 1s step-end 1 3s;
-      animation-fill-mode: both;
-}
-
-/*work container*/
-.work-container{
-  position: absolute;
-  left: 150px;
-  top: -150px;
-}
-
-.work-container:hover .work-info{
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.work-info{
-  position: absolute;
-  right: -330px;
-  bottom: -140px;
-  background-color: #1f004b;
-  width: 300px;
-  height: 300px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  border-radius: 5px;
-  padding: 1em;
-  border: none;
-  pointer-events: none;
-}
-
-.work-info::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 80%; /* 80% of the container width */
-  height: 80%; /* 80% of the container height */
-  border-top: 2px solid rgb(233, 230, 230); /* Top border */
-  border-left: 2px solid rgb(230, 226, 226); /* Left border */
-}
-
-.work-container:hover .typewriting-text{
-  letter-spacing: 5px;
-  color: white;
-  width: 100%;
-  height: 10%;
-  border-right: 5px solid;
-  white-space: normal;
-  overflow: hidden;
-  word-wrap: break-word;
-  line-height: 1.5;
-  animation: 
-      typing 2s steps(30),
-      cursor 1s step-end 1;
-}
-
-.work-container:hover .typewriting-text.delay-5{
-  text-decoration: overline solid #e4e9e9;
-  animation: 
-      typing 2s steps(30) 1s,
-      cursor 1s step-end 1 1s;
-      animation-fill-mode: both;
-}
-
-.work-container:hover .typewriting-text.delay-10{
-  margin: 1em 0 0.3em;
-  animation: 
-      typing 2s steps(40) 2s,
-      cursor 1s step-end 1 2s;
-      animation-fill-mode: both;
-}
-
-.work-container:hover .typewriting-text.delay-15{
-  width: 100%;
-  height: 30%;
-  text-indent: 20px;
-  font-size: 0.8em;
-  letter-spacing: 2px;
-  animation: 
-      typing 2s steps(40) 3s,
-      cursor 1s step-end 1 3s;
-      animation-fill-mode: both;
-}
-
-@keyframes cursor {
-  0% {
-    border-color: transparent; /* Invisible during delay */
-  }
-  50% { border-color: transparent }
-  51% {
-    border-color: white; /* Start blinking after delay */
-  }
-}
-
-@keyframes typing {
-  from { width: 0 }
-}
-
-.zoom-link{
-  position: relative;
-  display: inline-block;
-  z-index: 1;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.zoom-link:active {
-  background-color: #f00; /* Briefly changes color on click */
-  transform: scale(1.2);
-}
-
-.zoom-link:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 80%);
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 50%;
-  z-index: -1; /* Places the effect behind the link */
-  transition: transform 1s ease;
-}
-
-.zoom-link:active:after {
-  transform: translate(-50%, -50%) scale(50); /* Expands the radial gradient */
->>>>>>> f47e976a526986ef92f43e30c5aad398758773a2
 }
